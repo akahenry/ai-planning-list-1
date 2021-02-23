@@ -1,8 +1,6 @@
 #include <iostream>
 #include <string.h>
 #include <vector>
-#include <sstream>
-#include <iterator>
 
 enum Algorithms
 {
