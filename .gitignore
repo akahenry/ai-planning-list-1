@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# Main executable
+main
+
+# Vscode
+.vscode/
