@@ -1,2 +1,2 @@
 all:
-	g++ -o main src/main.cpp
+	g++ -o main src/*.cpp
