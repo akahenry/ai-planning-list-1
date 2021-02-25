@@ -15,7 +15,6 @@ struct Program
 namespace Parser
 {
     Algorithms::Types hashit(char* str);
-
     Program* parse(int argc, char** argv);
 }
 
