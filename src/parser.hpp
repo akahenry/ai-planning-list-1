@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include "algorithms.hpp"
+#include "state.hpp"
 
 #ifndef PARSER_H
 #define PARSER_H
@@ -9,7 +10,7 @@
 struct Program
 {
     Algorithms::Types algorithm;
-    std::vector<std::vector<int>> instances;
+    std::vector<State> states;
 };
 
 namespace Parser

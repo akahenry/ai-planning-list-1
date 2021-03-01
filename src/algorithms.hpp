@@ -1,5 +1,7 @@
 #include <vector>
 #include "graph.hpp"
+#include "state.hpp"
+#include "actions.hpp"
 
 #ifndef ALGORITHMS_H
 #define ALGORITHMS_H
@@ -16,10 +18,10 @@ namespace Algorithms
         NONE
     };
 
-    template <typename Action_Type, typename State_Type> struct ActionState
+    struct ActionState
     {
-        Action_Type action;
-        State_Type state;
+        Actions action;
+        State state;
     };
 
     struct UnsolvableProblem : public std::exception
@@ -30,10 +32,10 @@ namespace Algorithms
         }
     };
 
-    template <typename State_Type> bool isGoal(State_Type state);
-    template <typename Action_Type, typename State_Type> std::vector<ActionState<Action_Type, State_Type>> succ(State_Type state);
+    bool isGoal(State state);
+    std::vector<ActionState> succ(State state);
 
-    template <class State_Type, class Action_Type, typename T> void bfsGraph(State_Type instance);
+    std::vector<Actions> bfsGraph(State instance);
     void aStar();
     void idfs();
     void idaStar();

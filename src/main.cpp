@@ -1,5 +1,6 @@
 #include "parser.hpp"
-#include "problem.hpp"
+#include "actions.hpp"
+#include "state.hpp"
 
 int main(int argc, char** argv) 
 {
@@ -8,9 +9,9 @@ int main(int argc, char** argv)
     switch(prog->algorithm)
     {
         case Algorithms::BFS:
-            for(int i = 0; i < prog->instances.size(); i++)
+            for(int i = 0; i < prog->states.size(); i++)
             {
-                Algorithms::bfsGraph<std::vector<int>, Problem::Actions, double>(prog->instances[i]);
+                Algorithms::bfsGraph(prog->states[i]);
             }
             break;
     }

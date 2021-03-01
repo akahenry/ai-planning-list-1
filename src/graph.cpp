@@ -11,7 +11,7 @@ template <class State_Type, class Action_Type, typename T> Node<State_Type, Acti
     return node;
 }
 
-template <class State_Type, class Action_Type, typename T> Node<State_Type, Action_Type, T> Node<State_Type, Action_Type, T>::make_node(Node<State_Type, Action_Type, T> parent, Action_Type action, State_Type state)
+template <class State_Type, class Action_Type, typename T> Node<State_Type, Action_Type, T> Node<State_Type, Action_Type, T>::make_node(Node<State_Type, Action_Type, T>* parent, Action_Type action, State_Type* state)
 {
     Node node = new Node;
     node->state = state;

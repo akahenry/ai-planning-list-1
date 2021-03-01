@@ -3,17 +3,20 @@
 #include <algorithm>
 #include <map>
 
+#ifndef GRAPH_H
+#define GRAPH_H
+
 template <class State_Type, class Action_Type, typename T = int> class Node
 {
     public:
         State_Type* state;
         Node* parent;
-        Action_Type* action;
+        Action_Type action;
         T path_cost;
 
-        Node<State_Type, Action_Type, T> make_root_node();
-        Node<State_Type, Action_Type, T> make_node(Node<State_Type, Action_Type, T> parent, Action_Type action, State_Type state);
-        std::vector<Action_Type> extract_path(Node<State_Type, Action_Type, T> node);
+        static Node<State_Type, Action_Type, T> make_root_node();
+        static Node<State_Type, Action_Type, T> make_node(Node<State_Type, Action_Type, T>* parent, Action_Type action, State_Type* state);
+        static std::vector<Action_Type> extract_path(Node<State_Type, Action_Type, T> node);
 };
 
 template <typename T> class OpenList : public std::vector<T>
@@ -30,3 +33,5 @@ template <typename State_Type, typename Node_Type> class ClosedList : public std
         bool lookup(State_Type state);
         void insert(Node_Type node);
 };
+
+#endif

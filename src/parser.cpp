@@ -18,8 +18,9 @@ Algorithms::Types Parser::hashit(char* str)
 
 Program* Parser::parse(int argc, char** argv)
 {
-    std::vector<std::vector<int>> instances;
+    std::vector<State> states;
     std::vector<int> currentInstance;
+    int currentBlankTilePosition;
     Algorithms::Types algorithm;
 
     for(int i = 1; i < argc; i++) 
@@ -29,7 +30,12 @@ Program* Parser::parse(int argc, char** argv)
             case Algorithms::Types::NONE:
                 try
                 {
-                    currentInstance.push_back(std::stoi(argv[i]));
+                    int temp = std::stoi(argv[i]);
+                    currentInstance.push_back(temp);
+                    if (temp == 0)
+                    {
+                        currentBlankTilePosition = currentInstance.size() - 1;
+                    }
                 }
                 catch(const std::invalid_argument& e)
                 {
@@ -39,7 +45,7 @@ Program* Parser::parse(int argc, char** argv)
 
                 if(strchr(argv[i], ','))
                 {
-                    instances.push_back(currentInstance);
+                    states.push_back(State(Instance(currentInstance, currentBlankTilePosition)));
                     currentInstance.clear();
                 } 
                 break;
@@ -47,7 +53,7 @@ Program* Parser::parse(int argc, char** argv)
                 continue;
         }
     }
-    instances.push_back(currentInstance);
+    states.push_back(State(Instance(currentInstance, currentBlankTilePosition)));
 
-    return new Program{algorithm, instances};
+    return new Program{algorithm, states};
 }

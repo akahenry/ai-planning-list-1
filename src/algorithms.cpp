@@ -1,32 +1,31 @@
 #include "algorithms.hpp"
 
-
-template <class State_Type, class Action_Type, typename T> void Algorithms::bfsGraph()
+std::vector<Actions> Algorithms::bfsGraph(State instance)
 {
-    OpenList<Node<State_Type, Action_Type, T>> open;
-    ClosedList<State_Type, Node<State_Type, Action_Type, T>> closed;
-    Node<State_Type, Action_Type, T> node;
-    std::vector<ActionState<Action_Type, State_Type>> successors;
+    OpenList<Node<State, Actions, double>> open;
+    ClosedList<State, Node<State, Actions, double>> closed;
+    Node<State, Actions, double> node;
+    std::vector<ActionState> successors;
 
-    open.insert(Node<State_Type, Action_Type, T>::make_root_node());
+    open.insert(Node<State, Actions, double>::make_root_node());
 
     while(!open.is_empty())
     {
         node = open.pop();
 
-        if(!closed.lookup(node.state))
+        if(!closed.lookup(*(node.state)))
         {
             closed.insert(node);
 
-            if(Algorithms::isGoal<typename State_Type>(node.state))
+            if(Algorithms::isGoal(*(node.state)))
             {
-                return Node<State_Type, Action_Type, T>::extract_path(node);
+                return Node<State, Actions, double>::extract_path(node);
             }
 
-            successors = Algorithms::succ<typename State_Type>(node.state);
+            successors = Algorithms::succ(*(node.state));
             for(int i = 0; i < successors.size(); i++)
             {
-                open.insert(Node<State_Type, Action_Type, T>::make_node(node, successors[i].action, successors[i].state));
+                open.insert(Node<State, Actions, double>::make_node(&node, successors[i].action, &(successors[i].state)));
             }
         }
     }
