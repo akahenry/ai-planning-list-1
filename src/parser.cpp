@@ -1,33 +1,35 @@
 #include "parser.hpp"
 
-Algorithms::Types Parser::hashit(char* str) 
+Types Parser::hashit(char* str) 
 {
     if(!strcmp(str, "-bfs"))
-        return Algorithms::BFS;
+        return Types::BFS;
     else if(!strcmp(str, "-idfs"))
-        return Algorithms::IDFS;
+        return Types::IDFS;
     else if(!strcmp(str, "-astar"))
-        return Algorithms::ASTAR;
+        return Types::ASTAR;
     else if(!strcmp(str, "-idastar"))
-        return Algorithms::IDASTAR;
+        return Types::IDASTAR;
     else if(!strcmp(str, "-gbfs"))
-        return Algorithms::GBFS;
+        return Types::GBFS;
     else
-        return Algorithms::NONE;
+        return Types::NONE;
 }
 
 Program* Parser::parse(int argc, char** argv)
 {
     std::vector<State> states;
     std::vector<int> currentInstance;
-    int currentBlankTilePosition;
-    Algorithms::Types algorithm;
+    int currentBlankTilePosition = 0;
+    Types temp;
+    Types algorithm;
 
     for(int i = 1; i < argc; i++) 
     {
-        switch(algorithm = Parser::hashit(argv[i])) 
+        temp = Parser::hashit(argv[i]);
+        switch(temp) 
         {
-            case Algorithms::Types::NONE:
+            case Types::NONE:
                 try
                 {
                     int temp = std::stoi(argv[i]);
@@ -45,15 +47,16 @@ Program* Parser::parse(int argc, char** argv)
 
                 if(strchr(argv[i], ','))
                 {
-                    states.push_back(State(Instance(currentInstance, currentBlankTilePosition)));
+                    states.push_back(State(new Instance(currentInstance, currentBlankTilePosition)));
                     currentInstance.clear();
                 } 
                 break;
             default:
+                algorithm = temp;
                 continue;
         }
     }
-    states.push_back(State(Instance(currentInstance, currentBlankTilePosition)));
+    states.push_back(State(new Instance(currentInstance, currentBlankTilePosition)));
 
     return new Program{algorithm, states};
 }

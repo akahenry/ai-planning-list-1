@@ -1,6 +1,7 @@
 #include <vector>
 #include <map>
 #include <algorithm> 
+
 #include "actions.hpp"
 
 #ifndef INSTANCE_H
@@ -10,9 +11,11 @@ class Instance
 {
     private:
         std::vector<int> tiles;
-        int blankTilePosition;
+        //int blankTilePosition;
 
     public:
+        int blankTilePosition;
+
         const std::map<Actions, int> ACTION_MOVE = {
             {Actions::UP, -3},
             {Actions::LEFT, -1},
@@ -22,10 +25,11 @@ class Instance
 
         Instance();
         Instance(std::vector<int> tiles, int blankTilePosition);
-        Instance nextInstance(Actions action);
+        Instance* nextInstance(Actions action);
         static bool isGoal(Instance instance);
 
-        Instance operator=(const Instance instance);
+        Instance& operator=(const Instance &other);
+        bool operator==(const Instance &other);
 };
 
 #endif

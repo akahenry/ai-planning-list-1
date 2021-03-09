@@ -1,6 +1,7 @@
+#include <iostream>
+
+#include "algorithms.hpp"
 #include "parser.hpp"
-#include "actions.hpp"
-#include "state.hpp"
 
 int main(int argc, char** argv) 
 {
@@ -8,11 +9,15 @@ int main(int argc, char** argv)
 
     switch(prog->algorithm)
     {
-        case Algorithms::BFS:
+        case Types::BFS:
             for(int i = 0; i < prog->states.size(); i++)
             {
-                Algorithms::bfsGraph(prog->states[i]);
+                std::vector<Actions> optimalSolution = Algorithms::bfsGraph(&(prog->states[i]));
+                std::cout << Node::count() << ',' << optimalSolution.size() << ',';
             }
+            break;
+        default:
+            std::cout << prog->algorithm;
             break;
     }
 

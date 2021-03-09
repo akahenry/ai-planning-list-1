@@ -1,33 +1,39 @@
 #include "algorithms.hpp"
 
-std::vector<Actions> Algorithms::bfsGraph(State instance)
+std::vector<Actions> Algorithms::bfsGraph(State* instance)
 {
-    OpenList<Node<State, Actions, double>> open;
-    ClosedList<State, Node<State, Actions, double>> closed;
-    Node<State, Actions, double> node;
-    std::vector<ActionState> successors;
+    Node::init();
+    std::vector<Actions> result;
+    std::deque<Node*> open;
+    std::unordered_set<Node*> closed;
+    Node* root = Node::make_root_node(instance);
 
-    open.insert(Node<State, Actions, double>::make_root_node());
+    if(instance->isGoal())
+        return result;
 
-    while(!open.is_empty())
+    open.push_back(root);
+    closed.insert(root);
+    while(!open.empty())
     {
-        node = open.pop();
+        Node* node = open[0];
 
-        if(!closed.lookup(*(node.state)))
+        for(std::pair<const Actions, State*> &x : node->state->succ())
         {
-            closed.insert(node);
+            State* state = x.second;
+            Actions action = x.first;
+            Node* nextNode = Node::make_node(node, action, state);
 
-            if(Algorithms::isGoal(*(node.state)))
+            if(state->isGoal())
             {
-                return Node<State, Actions, double>::extract_path(node);
+                return Node::extract_path(*nextNode);
             }
-
-            successors = Algorithms::succ(*(node.state));
-            for(int i = 0; i < successors.size(); i++)
+            else if (!closed.count(nextNode))
             {
-                open.insert(Node<State, Actions, double>::make_node(&node, successors[i].action, &(successors[i].state)));
+                closed.insert(nextNode);
+                open.push_back(nextNode);
             }
         }
+        open.pop_front();
     }
 
     throw Algorithms::UnsolvableProblem();

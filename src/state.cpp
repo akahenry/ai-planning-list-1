@@ -1,18 +1,36 @@
 #include "state.hpp"
 
-State::State(Instance instance)
+State::State()
+{
+    this->instance = new Instance;
+}
+
+State::State(Instance* instance)
 {
     this->instance = instance;
 }
 
-State State::nextState(Actions action)
+State* State::nextState(Actions action)
 {
-    return State(this->instance.nextInstance(action));
+    Instance* nextInstance = this->instance->nextInstance(action);
+    if(this->instance == nextInstance)
+    {
+        return this;
+    }
+    else
+    {
+        return new State(nextInstance);
+    }
 }
 
-std::map<Actions, State> State::succ()
+bool State::isGoal()
 {
-    std::map<Actions, State> map;
+    return Instance::isGoal(*(this->instance));
+}
+
+std::map<Actions, State*> State::succ()
+{
+    std::map<Actions, State*> map;
 
     for(Actions action = Actions::UP; action <= Actions::DOWN; action = Actions(int(action) + 1))
     {
@@ -20,5 +38,10 @@ std::map<Actions, State> State::succ()
     }
 
     return map;
+}
+
+bool State::operator==(const State &state)
+{
+    return this->instance == state.instance;
 }
 

@@ -11,10 +11,10 @@ Instance::Instance(std::vector<int> tiles, int blankTilePosition)
     this->blankTilePosition = blankTilePosition;
 }
 
-Instance Instance::nextInstance(Actions action)
+Instance* Instance::nextInstance(Actions action)
 {
     std::vector<int> newTiles = this->tiles;
-    int increment;
+    int increment = 0;
     switch (this->blankTilePosition)
     {
     case 0:
@@ -71,10 +71,18 @@ Instance Instance::nextInstance(Actions action)
     default:
         break;
     }
-    newTiles[this->blankTilePosition] = this->tiles[this->blankTilePosition + increment];
-    newTiles[this->blankTilePosition + increment] = 0;
 
-    return Instance(newTiles, this->blankTilePosition + increment);
+    if(increment == 0)
+    {
+        return this;
+    }
+    else 
+    {
+        newTiles[this->blankTilePosition] = this->tiles[this->blankTilePosition + increment];
+        newTiles[this->blankTilePosition + increment] = 0;
+
+        return new Instance(newTiles, this->blankTilePosition + increment);
+    }
 }
 
 bool Instance::isGoal(Instance instance)
@@ -82,7 +90,14 @@ bool Instance::isGoal(Instance instance)
     return std::is_sorted(instance.tiles.begin(), instance.tiles.end());
 }
 
-Instance Instance::operator=(const Instance instance)
+Instance& Instance::operator=(const Instance &other)
 {
-    return Instance(this->tiles, this->blankTilePosition);
+    this->blankTilePosition = other.blankTilePosition;
+    this->tiles = other.tiles;
+    return *this;
+}
+
+bool Instance::operator==(const Instance &other)
+{
+    return (this->tiles == other.tiles) && (this->blankTilePosition == other.blankTilePosition);
 }

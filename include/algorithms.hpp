@@ -1,23 +1,20 @@
+#include <iostream>
 #include <vector>
-#include "graph.hpp"
-#include "state.hpp"
+#include <deque>
+#include <unordered_set>
+#include <map>
+
 #include "actions.hpp"
+#include "closedlist.hpp"
+#include "openlist.hpp"
+#include "node.hpp"
+#include "state.hpp"
 
 #ifndef ALGORITHMS_H
 #define ALGORITHMS_H
 
 namespace Algorithms
 {
-    enum Types
-    {
-        BFS,
-        IDFS,
-        ASTAR,
-        IDASTAR,
-        GBFS,
-        NONE
-    };
-
     struct ActionState
     {
         Actions action;
@@ -32,10 +29,7 @@ namespace Algorithms
         }
     };
 
-    bool isGoal(State state);
-    std::vector<ActionState> succ(State state);
-
-    std::vector<Actions> bfsGraph(State instance);
+    std::vector<Actions> bfsGraph(State* instance);
     void aStar();
     void idfs();
     void idaStar();
