@@ -1,6 +1,9 @@
 #include "node.hpp"
 
-int Node::nextId;
+int Node::hash(Actions action, State* state)
+{
+    return std::hash<int>()(action) ^ state->getId();
+}
 
 Node::Node()
 {
@@ -11,21 +14,14 @@ Node::Node()
     this->path_cost = -1;
 }
 
-void Node::init()
-{
-    nextId = 0;
-}
-
 Node* Node::make_root_node(State* state)
 {
     Node* node = new Node;
-    node->id = nextId;
     node->state = state;
     node->parent = NULL;
     node->action = Actions::UP;
     node->path_cost = 0;
-
-    nextId++;
+    node->id = hash(node->action, state);
 
     return node;
 }
@@ -39,25 +35,22 @@ Node* Node::make_node(Node* parent, Actions action, State* state)
     else
     {
         Node* node = new Node;
-        node->id = nextId;
+        node->id = hash(action, state);
         node->state = state;
         node->parent = parent;
         node->action = action;
         node->path_cost = parent->path_cost + Problem::cost(*state, action);
 
-        nextId++;
-
         return node;
     }
 }
 
-std::vector<Actions> Node::extract_path(Node node)
+std::vector<Actions> Node::extract_path(Node node, State* start)
 {
     std::vector<Actions> path;
 
-    while(node.parent != nullptr)
+    while(node.state != nullptr && *(node.state) != *(start) && node.parent != nullptr)
     {
-        //std::cout << "Pai id: " << node.parent->id << std::endl;
         path.push_back(node.action);
         node = *(node.parent);
     }
@@ -67,14 +60,15 @@ std::vector<Actions> Node::extract_path(Node node)
     return path;
 }
 
-int Node::count()
-{
-    return Node::nextId;
-}
-
 int Node::getId()
 {
     return this->id;
+}
+
+void Node::deleteState()
+{
+    State::deleteState(this->state);
+    this->state = nullptr;
 }
 
 Node&  Node::operator=(const Node &other)

@@ -11,10 +11,13 @@ class Instance
 {
     private:
         std::vector<int> tiles;
-        //int blankTilePosition;
+        int blankTilePosition;
 
     public:
-        int blankTilePosition;
+        struct Instance_Hash
+        {
+            std::size_t operator()(const Instance& instance) const;
+        };
 
         const std::map<Actions, int> ACTION_MOVE = {
             {Actions::UP, -3},
@@ -25,11 +28,20 @@ class Instance
 
         Instance();
         Instance(std::vector<int> tiles, int blankTilePosition);
+        int getBlankTilePosition();
+        std::vector<int> getTiles();
+
         Instance* nextInstance(Actions action);
         static bool isGoal(Instance instance);
 
         Instance& operator=(const Instance &other);
         bool operator==(const Instance &other);
+};
+
+template <>
+struct std::hash<Instance>
+{
+    std::size_t operator()(const Instance& instance) const;
 };
 
 #endif

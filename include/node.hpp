@@ -12,28 +12,38 @@
 
 class Node
 {
-    public:
+    private:
         int id;
+
+        Node();
+        static int hash(Actions action, State* state); 
+
+    public:
+        struct Node_Hash
+        {
+            size_t
+            operator()(const Node* obj) const
+            {
+                return Node::hash(obj->action, obj->state);
+            }
+        };
+
         State* state;
         Node* parent;
         Actions action;
         int path_cost;
 
         int getId();
+        void deleteState();
 
         static void init();
         static Node* make_root_node(State* state);
         static Node* make_node(Node* parent, Actions action, State* state);
-        static std::vector<Actions> extract_path(Node node);
+        static std::vector<Actions> extract_path(Node node, State* start);
         static int count();
 
         Node& operator=(const Node &node);
         bool operator==(const Node &node) const;
-        
-    private:
-        static int nextId;
-
-        Node();
 };
 
 // namespace std

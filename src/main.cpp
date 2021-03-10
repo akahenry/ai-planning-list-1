@@ -13,7 +13,7 @@ int main(int argc, char** argv)
             for(int i = 0; i < prog->states.size(); i++)
             {
                 std::vector<Actions> optimalSolution = Algorithms::bfsGraph(&(prog->states[i]));
-                std::cout << Node::count() << ',' << optimalSolution.size() << ',';
+                std::cout << "<Node count>" << ',' << optimalSolution.size() << ',';
             }
             break;
         default:

@@ -2,13 +2,13 @@
 
 std::vector<Actions> Algorithms::bfsGraph(State* instance)
 {
-    Node::init();
+    State start = *instance;
     std::vector<Actions> result;
     std::deque<Node*> open;
-    std::unordered_set<Node*> closed;
+    std::unordered_set<Node*, Node::Node_Hash> closed;
     Node* root = Node::make_root_node(instance);
 
-    if(instance->isGoal())
+    if(start.isGoal())
         return result;
 
     open.push_back(root);
@@ -25,7 +25,7 @@ std::vector<Actions> Algorithms::bfsGraph(State* instance)
 
             if(state->isGoal())
             {
-                return Node::extract_path(*nextNode);
+                return Node::extract_path(*nextNode, &start);
             }
             else if (!closed.count(nextNode))
             {

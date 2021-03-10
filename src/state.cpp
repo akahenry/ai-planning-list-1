@@ -1,21 +1,72 @@
 #include "state.hpp"
 
+int State::hash(const Instance &instance)
+{
+    return Instance::Instance_Hash()(instance);
+}
+
+State* State::getState(Instance* instance)
+{
+    try
+    {
+        int hashResult = hash(*instance);
+        if(states.find(hashResult) != states.end())
+            return nullptr;
+        else
+        {
+            return states.at(hashResult);
+        }
+    } 
+    catch(std::out_of_range& e) 
+    {
+        return nullptr;
+    }
+}
+
+void State::insertState(State* state)
+{
+    states.insert({hash(*(state->instance)), state});
+}
+
+void State::deleteState(State* state)
+{
+    states.erase(hash((*state->instance)));
+    delete state;
+}
+
 State::State()
 {
+    this->id = -1;
     this->instance = new Instance;
+
+    State::insertState(this);
 }
 
 State::State(Instance* instance)
 {
-    this->instance = instance;
+    State* got = State::getState(instance);
+    
+    if(got != nullptr)
+    {
+        this->id = got->id;
+        this->instance = got->instance;
+    }
+    else
+    {
+        this->id = hash(*instance);
+        this->instance = instance;
+        State::insertState(this);
+    }    
 }
 
 State* State::nextState(Actions action)
 {
     Instance* nextInstance = this->instance->nextInstance(action);
-    if(this->instance == nextInstance)
+    State* got = State::getState(nextInstance);
+
+    if(got != nullptr)
     {
-        return this;
+        return got;
     }
     else
     {
@@ -26,6 +77,11 @@ State* State::nextState(Actions action)
 bool State::isGoal()
 {
     return Instance::isGoal(*(this->instance));
+}
+
+int State::getId()
+{
+    return this->id;
 }
 
 std::map<Actions, State*> State::succ()
@@ -40,8 +96,26 @@ std::map<Actions, State*> State::succ()
     return map;
 }
 
-bool State::operator==(const State &state)
+State& State::operator=(const State &state)
 {
-    return this->instance == state.instance;
+    *(this->instance) = *(state.instance);
+
+    return *this;
 }
 
+bool State::operator==(const State &state)
+{
+    if (this->instance == nullptr)
+    {
+        return state.instance == nullptr;
+    }
+    else
+    {
+        return this->instance == state.instance;
+    }
+}
+
+bool State::operator!=(const State &state)
+{
+    return !(*this == state);
+}

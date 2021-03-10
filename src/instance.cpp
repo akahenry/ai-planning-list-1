@@ -11,6 +11,16 @@ Instance::Instance(std::vector<int> tiles, int blankTilePosition)
     this->blankTilePosition = blankTilePosition;
 }
 
+int Instance::getBlankTilePosition()
+{
+    return this->blankTilePosition;
+}
+
+std::vector<int> Instance::getTiles()
+{
+    return std::vector<int>(this->tiles);
+}
+
 Instance* Instance::nextInstance(Actions action)
 {
     std::vector<int> newTiles = this->tiles;
@@ -100,4 +110,14 @@ Instance& Instance::operator=(const Instance &other)
 bool Instance::operator==(const Instance &other)
 {
     return (this->tiles == other.tiles) && (this->blankTilePosition == other.blankTilePosition);
+}
+
+std::size_t Instance::Instance_Hash::operator()(const Instance& instance) const
+{
+    std::size_t ret = 0;
+    Instance inst = instance;
+    for(auto& i : inst.getTiles()) {
+      ret ^= std::hash<uint32_t>()(i);
+    }
+    return ret;
 }
