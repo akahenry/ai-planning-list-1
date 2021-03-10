@@ -2,7 +2,7 @@
 
 int Node::hash(Actions action, State* state)
 {
-    return std::hash<int>()(action) ^ state->getId();
+    return state->getId();
 }
 
 Node::Node()

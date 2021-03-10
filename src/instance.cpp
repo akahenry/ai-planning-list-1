@@ -114,10 +114,10 @@ bool Instance::operator==(const Instance &other)
 
 std::size_t Instance::Instance_Hash::operator()(const Instance& instance) const
 {
-    std::size_t ret = 0;
-    Instance inst = instance;
-    for(auto& i : inst.getTiles()) {
-      ret ^= std::hash<uint32_t>()(i);
+    std::vector<int> vec = instance.tiles;
+    std::size_t seed = vec.size();
+    for(auto& i : vec) {
+        seed ^= i + 0x9e3779b9 + (seed << 6) + (seed >> 2);
     }
-    return ret;
+    return seed;
 }

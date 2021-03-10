@@ -22,9 +22,9 @@ class Node
         struct Node_Hash
         {
             size_t
-            operator()(const Node* obj) const
+            operator()(const Node &obj) const
             {
-                return Node::hash(obj->action, obj->state);
+                return Node::hash(obj.action, obj.state);
             }
         };
 

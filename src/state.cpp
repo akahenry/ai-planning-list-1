@@ -25,12 +25,12 @@ State* State::getState(Instance* instance)
 
 void State::insertState(State* state)
 {
-    states.insert({hash(*(state->instance)), state});
+    states.insert({state->id, state});
 }
 
 void State::deleteState(State* state)
 {
-    states.erase(hash((*state->instance)));
+    states.erase(state->id);
     delete state;
 }
 
