@@ -12,8 +12,11 @@ int main(int argc, char** argv)
         case Types::BFS:
             for(int i = 0; i < prog->states.size(); i++)
             {
-                std::vector<Actions> optimalSolution = Algorithms::bfsGraph(&(prog->states[i]));
-                std::cout << "<Node count>" << ',' << optimalSolution.size() << ',';
+                
+                Algorithms::Response response = Algorithms::bfsGraph(&(prog->states[i]));
+                std::cout << response.expandedNodes << ',' << response.optimalSolutionSize << ',' << 
+                    response.elapsedTime << ',' << response.meanHeuristicFunction << ',' << 
+                    response.initialHeuristicFunction << std::endl;
             }
             break;
         default:

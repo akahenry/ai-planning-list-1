@@ -1,4 +1,5 @@
 #include <iostream>
+#include <chrono>
 #include <vector>
 #include <deque>
 #include <unordered_set>
@@ -6,6 +7,7 @@
 
 #include "actions.hpp"
 #include "closedlist.hpp"
+#include "heuristic.hpp"
 #include "openlist.hpp"
 #include "node.hpp"
 #include "state.hpp"
@@ -15,10 +17,14 @@
 
 namespace Algorithms
 {
-    struct ActionState
+    struct Response
     {
-        Actions action;
-        State state;
+        std::vector<Actions> actionSequence;
+        int expandedNodes;
+        int optimalSolutionSize;
+        float elapsedTime;
+        float meanHeuristicFunction;
+        int initialHeuristicFunction;
     };
 
     struct UnsolvableProblem : public std::exception
@@ -29,7 +35,14 @@ namespace Algorithms
         }
     };
 
-    std::vector<Actions> bfsGraph(State* instance);
+    static int heuristicCount = 0;
+    static int heuristicAcc = 0;
+
+    int heuristic(Node node);
+
+    Response createResponse(Node initial, std::vector<Actions> actions, std::chrono::_V2::system_clock::time_point startPoint, int expandedNodes, Heuristic heuristic);
+
+    Response bfsGraph(State* instance);
     void aStar();
     void idfs();
     void idaStar();
