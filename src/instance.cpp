@@ -3,12 +3,14 @@
 Instance::Instance()
 {
     this->blankTilePosition = 0;
+    this->size = 0;
 }
 
 Instance::Instance(std::vector<int> tiles, int blankTilePosition)
 {
     this->tiles = tiles;
     this->blankTilePosition = blankTilePosition;
+    this->size = tiles.size();
 }
 
 int Instance::getBlankTilePosition()

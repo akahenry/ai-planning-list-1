@@ -7,11 +7,14 @@
 #ifndef INSTANCE_H
 #define INSTANCE_H
 
+// TODO: doesnt work with 15-puzzle
+
 class Instance
 {
     private:
         std::vector<int> tiles;
         int blankTilePosition;
+        int size;
 
     public:
         struct Instance_Hash
