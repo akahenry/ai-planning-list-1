@@ -35,11 +35,6 @@ namespace Algorithms
         }
     };
 
-    static int heuristicCount = 0;
-    static int heuristicAcc = 0;
-
-    int heuristic(Node node);
-
     Response createResponse(Node initial, std::vector<Actions> actions, std::chrono::_V2::system_clock::time_point startPoint, int expandedNodes, Heuristic heuristic);
 
     Response bfsGraph(State* instance);

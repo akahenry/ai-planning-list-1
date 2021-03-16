@@ -24,9 +24,25 @@ void Heuristic::reset()
 int Heuristic::run(State state)
 {
     int result = 0;
+    std::vector<int> tiles = state.instance->getTiles();
+    int size = tiles.size();
+    int rootSize = std::sqrt(size);
+    int x, y; // Optimal position
+    int a, b; // Current position
+
+    for(int i = 0; i < size; i++)
+    {
+        x = tiles[i]/rootSize;
+        y = tiles[i]%rootSize;
+
+        a = i/rootSize;
+        b = i%rootSize;
+
+        result += std::abs(x - a) + std::abs(y - b);
+    }
 
     this->counter++;
-    this->acc += result;
+    this->acc += result;    
 
     return result;
 }

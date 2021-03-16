@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "state.hpp"
 
 #ifndef HEURISTIC_H

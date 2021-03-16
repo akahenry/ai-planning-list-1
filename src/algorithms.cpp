@@ -1,15 +1,5 @@
 #include "algorithms.hpp"
 
-int Algorithms::heuristic(Node node)
-{
-    int result = 1;
-
-    Algorithms::heuristicCount++;
-    Algorithms::heuristicAcc += result;
-
-    return result; //#TODO
-}
-
 Algorithms::Response Algorithms::createResponse(Node initial, std::vector<Actions> actions, std::chrono::_V2::system_clock::time_point startPoint, int expandedNodes, Heuristic heuristic)
 {
     Algorithms::Response response;
