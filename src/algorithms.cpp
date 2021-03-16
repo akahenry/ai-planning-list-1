@@ -28,6 +28,7 @@ Algorithms::Response Algorithms::createResponse(Node initial, std::vector<Action
 Algorithms::Response Algorithms::bfsGraph(State* instance)
 {
     std::chrono::_V2::system_clock::time_point startTime = std::chrono::high_resolution_clock::now();
+    int expandedCount = 0;
     Heuristic heuristic = Heuristic();
     State start = *instance;
     Algorithms::Response response;
@@ -47,6 +48,7 @@ Algorithms::Response Algorithms::bfsGraph(State* instance)
     while(!open.empty())
     {
         Node* node = open[0];
+        expandedCount++;
 
         for(std::pair<const Actions, State*> &x : node->state->succ())
         {
@@ -56,7 +58,7 @@ Algorithms::Response Algorithms::bfsGraph(State* instance)
 
             if(state->isGoal())
             {
-                response = Algorithms::createResponse(*root, Node::extract_path(*nextNode, &start), startTime, closed.size() + 1, heuristic);
+                response = Algorithms::createResponse(*root, Node::extract_path(*nextNode, &start), startTime, expandedCount, heuristic);
 
                 return response;
             }
