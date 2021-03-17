@@ -7,7 +7,8 @@ Algorithms::Response Algorithms::BFSGraph::algorithm(State* state)
 
     if(this->initial->state->isGoal())
     {
-        return Algorithms::BaseAlgorithm::createResponse(std::vector<Actions>(), this->expandedCount + 1);
+        this->expandedCount++;
+        return Algorithms::BaseAlgorithm::createResponse(std::vector<Actions>());
     }
 
     open.push_back(this->initial);
@@ -15,17 +16,13 @@ Algorithms::Response Algorithms::BFSGraph::algorithm(State* state)
     while(!open.empty())
     {
         Node* node = open[0];
-        expandedCount++;
+        this->expandedCount++;
 
-        for(std::pair<const Actions, State*> &x : node->state->succ())
+        for(Node* nextNode : BaseAlgorithm::adjacents(node))
         {
-            State* state = x.second;
-            Actions action = x.first;
-            Node* nextNode = Node::make_node(node, action, state);
-
-            if(state->isGoal())
+            if(nextNode->state->isGoal())
             {
-                return Algorithms::BaseAlgorithm::createResponse(Node::extract_path(*nextNode, this->initial->state), expandedCount);
+                return Algorithms::BaseAlgorithm::createResponse(Node::extract_path(*nextNode, this->initial->state));
             }
             else if (!closed.count(*nextNode))
             {

@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "bfsgraph.hpp"
+#include "astar.hpp"
 #include "parser.hpp"
 
 int main(int argc, char** argv) 
@@ -16,8 +17,9 @@ int main(int argc, char** argv)
             case Types::BFS:
                 algorithm = new Algorithms::BFSGraph();
                 break;
+            case Types::ASTAR:
+                algorithm = new Algorithms::AStar();
             default:
-                std::cout << prog->algorithm;
                 break;
         }
 

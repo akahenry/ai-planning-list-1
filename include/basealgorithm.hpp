@@ -44,7 +44,8 @@ namespace Algorithms
             Node* initial;
 
             // Methods
-            Response createResponse(std::vector<Actions> actions, int expandedNodes);
+            Response createResponse(std::vector<Actions> actions);
+            std::vector<Node*> adjacents(Node* node);
 
             // Abstract
             virtual Response algorithm(State* state) = 0;
@@ -53,7 +54,6 @@ namespace Algorithms
             Response run(State* state);
     };
 
-    void aStar();
     void idfs();
     void idaStar();
     void gbfs();
