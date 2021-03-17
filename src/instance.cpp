@@ -11,6 +11,8 @@ Instance::Instance(std::vector<int> tiles, int blankTilePosition)
     this->tiles = tiles;
     this->blankTilePosition = blankTilePosition;
     this->size = tiles.size();
+    this->ACTION_MOVE[Actions::UP] = -std::sqrt(this->size);
+    this->ACTION_MOVE[Actions::DOWN] = std::sqrt(this->size);
 }
 
 int Instance::getBlankTilePosition()

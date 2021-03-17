@@ -14,11 +14,11 @@ class Node
 {
     private:
         int id;
-
-        Node();
         static int hash(Actions action, State* state); 
 
     public:
+        Node();
+
         struct Node_Hash
         {
             size_t

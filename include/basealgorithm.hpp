@@ -1,19 +1,14 @@
 #include <iostream>
 #include <chrono>
 #include <vector>
-#include <deque>
-#include <unordered_set>
-#include <map>
 
 #include "actions.hpp"
-#include "closedlist.hpp"
 #include "heuristic.hpp"
-#include "openlist.hpp"
 #include "node.hpp"
 #include "state.hpp"
 
-#ifndef ALGORITHMS_H
-#define ALGORITHMS_H
+#ifndef BASEALGORITHM_H
+#define BASEALGORITHM_H
 
 namespace Algorithms
 {
@@ -35,9 +30,29 @@ namespace Algorithms
         }
     };
 
-    Response createResponse(Node initial, std::vector<Actions> actions, std::chrono::_V2::system_clock::time_point startPoint, int expandedNodes, Heuristic heuristic);
+    class BaseAlgorithm
+    {
+        protected:
+            // Statistics
+            std::chrono::_V2::system_clock::time_point startTime;
+            std::chrono::_V2::system_clock::time_point endTime;
+            float duration = 0;
+            int expandedCount = 0;
 
-    Response bfsGraph(State* instance);
+            // Functionalities
+            Heuristic heuristic;
+            Node* initial;
+
+            // Methods
+            Response createResponse(std::vector<Actions> actions, int expandedNodes);
+
+            // Abstract
+            virtual Response algorithm(State* state) = 0;
+
+        public:
+            Response run(State* state);
+    };
+
     void aStar();
     void idfs();
     void idaStar();
