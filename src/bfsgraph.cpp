@@ -2,7 +2,6 @@
 
 Algorithms::Response Algorithms::BFSGraph::algorithm(State* state)
 {
-    Algorithms::Response response;
     std::deque<Node*> open;
     std::unordered_set<Node, Node::Node_Hash> closed;
 
