@@ -54,7 +54,6 @@ namespace Algorithms
             Response run(State* state);
     };
 
-    void idfs();
     void idaStar();
     void gbfs();
 }
