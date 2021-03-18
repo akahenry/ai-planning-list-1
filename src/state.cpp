@@ -7,19 +7,12 @@ int State::hash(const Instance &instance)
 
 State* State::getState(Instance* instance)
 {
-    try
-    {
-        int hashResult = hash(*instance);
-        if(states.find(hashResult) != states.end())
-            return nullptr;
-        else
-        {
-            return states.at(hashResult);
-        }
-    } 
-    catch(std::out_of_range& e) 
-    {
+    int hashResult = hash(*instance);
+    if(states.find(hashResult) == states.end())
         return nullptr;
+    else
+    {
+        return states.at(hashResult);
     }
 }
 

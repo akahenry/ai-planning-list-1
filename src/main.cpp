@@ -36,7 +36,7 @@ int main(int argc, char** argv)
                 break;
         }
 
-    response = algorithm->run(&(prog->states[i]));
+    response = algorithm->run(prog->states[i]);
     std::cout << response.expandedNodes << ',' << response.optimalSolutionSize << ',' << 
                     response.elapsedTime << ',' << response.meanHeuristicFunction << ',' << 
                     response.initialHeuristicFunction << std::endl;

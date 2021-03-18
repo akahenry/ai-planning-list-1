@@ -20,7 +20,7 @@ enum Types
 struct Program
 {
     Types algorithm;
-    std::vector<State> states;
+    std::vector<State*> states;
 };
 
 namespace Parser
