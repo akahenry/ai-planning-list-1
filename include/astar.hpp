@@ -3,6 +3,9 @@
 
 #include "basealgorithm.hpp"
 
+#ifndef ASTAR_H
+#define ASTAR_H
+
 namespace Algorithms
 {
     typedef std::pair<int, Node*> PQElement;
@@ -39,4 +42,4 @@ namespace Algorithms
     };
 } 
 
-
+#endif

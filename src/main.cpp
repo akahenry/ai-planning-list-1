@@ -2,6 +2,7 @@
 
 #include "bfsgraph.hpp"
 #include "astar.hpp"
+#include "idfs.hpp"
 #include "parser.hpp"
 
 int main(int argc, char** argv) 
@@ -19,6 +20,10 @@ int main(int argc, char** argv)
                 break;
             case Types::ASTAR:
                 algorithm = new Algorithms::AStar();
+                break;
+            case Types::IDFS:
+                algorithm = new Algorithms::IDFS();
+                break;
             default:
                 break;
         }
