@@ -53,8 +53,6 @@ namespace Algorithms
         public:
             Response run(State* state);
     };
-
-    void idaStar();
 }
 
 #endif
