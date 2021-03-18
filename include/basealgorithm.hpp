@@ -55,7 +55,6 @@ namespace Algorithms
     };
 
     void idaStar();
-    void gbfs();
 }
 
 #endif
