@@ -4,6 +4,7 @@
 #include "astar.hpp"
 #include "idfs.hpp"
 #include "gbfs.hpp"
+#include "idastar.hpp"
 #include "parser.hpp"
 
 int main(int argc, char** argv) 
@@ -27,6 +28,9 @@ int main(int argc, char** argv)
                 break;
             case Types::GBFS:
                 algorithm = new Algorithms::GBFS();
+                break;
+            case Types::IDASTAR:
+                algorithm = new Algorithms::IDAStar();
                 break;
             default:
                 break;
