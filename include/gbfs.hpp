@@ -1,19 +1,19 @@
 #include "bfs.hpp"
 
-#ifndef ASTAR_H
-#define ASTAR_H
+#ifndef GBFS_H
+#define GBFS_H
 
-namespace Algorithms
+namespace Algorithms 
 {
-    class AStarComparator
+    class GBFSComparator
     {
         public:
             bool operator()(Algorithms::PQElement a, Algorithms::PQElement b);
     };
 
-    class AStar : public Algorithms::BFS<AStarComparator>
+    class GBFS : public Algorithms::BFS<GBFSComparator>
     {
     };
-} 
+}
 
 #endif

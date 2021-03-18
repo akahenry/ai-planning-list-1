@@ -17,32 +17,4 @@ bool Algorithms::AStarComparator::operator()(PQElement a, PQElement b)
     }
 }
 
-Algorithms::Response Algorithms::AStar::algorithm(State* state)
-{
-    Algorithms::PriorityQueue open;
-    std::unordered_set<Node, Node::Node_Hash> closed;
-    
-    open.put(this->initial, this->heuristic.run(*(this->initial->state)));
-
-    while(!open.empty())
-    {
-        Node* node = open.get();
-
-        if(!closed.count(*node))
-        {
-            closed.insert(*node);
-            
-            if(node->state->isGoal())
-            {
-                return this->createResponse(Node::extract_path(*node, this->initial->state));
-            }
-
-            for(Node* nextNode : BaseAlgorithm::adjacents(node))
-            {
-                open.put(nextNode, this->heuristic.run(*(nextNode->state)));
-            }
-        }
-    }
-
-    throw Algorithms::UnsolvableProblem();
-}
+template struct Algorithms::BFS<Algorithms::AStarComparator>;
