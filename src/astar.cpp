@@ -30,7 +30,6 @@ Algorithms::Response Algorithms::AStar::algorithm(State* state)
 
         if(!closed.count(*node))
         {
-            this->expandedCount++;
             closed.insert(*node);
             
             if(node->state->isGoal())

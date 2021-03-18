@@ -28,6 +28,7 @@ Algorithms::Response Algorithms::BaseAlgorithm::createResponse(std::vector<Actio
 
 std::vector<Node*> Algorithms::BaseAlgorithm::adjacents(Node* node)
 {
+    this->expandedCount++;
     std::vector<Node*> response;
 
     for(std::pair<const Actions, State*> &x : node->state->succ())
