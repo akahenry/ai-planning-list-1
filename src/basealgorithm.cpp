@@ -11,6 +11,10 @@ Algorithms::Response Algorithms::BaseAlgorithm::run(State* state)
     response.optimalSolutionSize = response.actionSequence.size();
     response.elapsedTime = std::chrono::duration_cast<std::chrono::nanoseconds>(this->endTime - this->startTime).count() / 1000000000.0;
     response.meanHeuristicFunction = this->heuristic.mean();
+    if(std::isnan(response.meanHeuristicFunction))
+    {
+        response.meanHeuristicFunction = 0;
+    }
     response.initialHeuristicFunction = this->heuristic.run(*(this->initial->state));
 
     return response;
