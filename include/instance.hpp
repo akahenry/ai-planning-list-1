@@ -8,8 +8,6 @@
 #ifndef INSTANCE_H
 #define INSTANCE_H
 
-// TODO: doesnt work with 15-puzzle
-
 class Instance
 {
     private:

@@ -29,74 +29,46 @@ Instance* Instance::nextInstance(Actions action)
 {
     std::vector<int> newTiles = this->tiles;
     int increment = 0;
-    switch (this->blankTilePosition)
+    const int sqrtSize = std::sqrt(this->size);
+
+    int xBlankTilePosition = this->blankTilePosition/sqrtSize;
+    int yBlankTilePosition = this->blankTilePosition%sqrtSize;
+
+    if(xBlankTilePosition == 0)
     {
-    case 0:
-        if (action == Actions::RIGHT || action == Actions::DOWN)
+        if(action == Actions::UP)
         {
-            increment = Instance::ACTION_MOVE.at(action);
+            return this;
         }
-        break;
-    case 1:
-        if (action == Actions::LEFT || action == Actions::RIGHT || action == Actions::DOWN)
+    }
+    else if (xBlankTilePosition == (sqrtSize - 1))
+    {
+        if(action == Actions::DOWN)
         {
-            increment = Instance::ACTION_MOVE.at(action);
+            return this;
         }
-        break;
-    case 2:
-        if (action == Actions::LEFT || action == Actions::DOWN)
-        {
-            increment = Instance::ACTION_MOVE.at(action);
-        }
-        break;
-    case 3:
-        if (action == Actions::UP || action == Actions::RIGHT || action == Actions::DOWN)
-        {
-            increment = Instance::ACTION_MOVE.at(action);
-        }
-        break;
-    case 4:
-        increment = Instance::ACTION_MOVE.at(action);
-        break;
-    case 5:
-        if (action == Actions::UP || action == Actions::LEFT || action == Actions::DOWN)
-        {
-            increment = Instance::ACTION_MOVE.at(action);
-        }
-        break;
-    case 6:
-        if (action == Actions::UP || action == Actions::RIGHT)
-        {
-            increment = Instance::ACTION_MOVE.at(action);
-        }
-        break;
-    case 7:
-        if (action == Actions::UP || action == Actions::LEFT || action == Actions::RIGHT)
-        {
-            increment = Instance::ACTION_MOVE.at(action);
-        }
-        break;
-    case 8:
-        if (action == Actions::UP || action == Actions::LEFT)
-        {
-            increment = Instance::ACTION_MOVE.at(action);
-        }
-        break;
-    default:
-        break;
     }
 
-    if(increment == 0)
+    if(yBlankTilePosition == 0)
     {
-        return this;
+        if(action == Actions::LEFT)
+        {
+            return this;
+        }
     }
-    else 
+    else if (yBlankTilePosition == (sqrtSize - 1))
     {
-        newTiles[this->blankTilePosition] = this->tiles[this->blankTilePosition + increment];
-        newTiles[this->blankTilePosition + increment] = 0;
+        if(action == Actions::RIGHT)
+        {
+            return this;
+        }
+    }
 
-        return new Instance(newTiles, this->blankTilePosition + increment);
-    }
+    increment = this->ACTION_MOVE.at(action);
+    newTiles[this->blankTilePosition] = this->tiles[this->blankTilePosition + increment];
+    newTiles[this->blankTilePosition + increment] = 0;
+
+    return new Instance(newTiles, this->blankTilePosition + increment);
 }
 
 bool Instance::isGoal(Instance instance)
