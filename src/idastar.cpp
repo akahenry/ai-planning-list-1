@@ -1,5 +1,25 @@
 #include "idastar.hpp"
 
+std::vector<Node*> Algorithms::IDAStar::adjacents(Node* node)
+{
+    this->expandedCount++;
+    std::vector<Node*> response;
+
+    for(std::pair<const Actions, State*> &x : node->state->succ())
+    {
+        Actions action = x.first;
+        State* state = x.second;
+        if(state->instance->getBlankTilePosition() != node->state->instance->getBlankTilePosition() &&
+            this->closedStates.count(*state) == 0)
+        {
+            response.push_back(Node::make_node(node, action, state));
+            this->closedStates.insert(*state);
+        }
+    }
+    
+    return response;
+}
+
 std::pair<Algorithms::IntOrNone, Algorithms::ActionsOrNone> Algorithms::IDAStar::recursiveSearch(Node* node, int limit)
 {
     int f_n = node->path_cost + this->heuristic.run(*(node->state));
@@ -16,7 +36,7 @@ std::pair<Algorithms::IntOrNone, Algorithms::ActionsOrNone> Algorithms::IDAStar:
 
     int nextLimit = std::numeric_limits<int>::max();
 
-    for(Node* nextNode : BaseAlgorithm::adjacents(node))
+    for(Node* nextNode : this->adjacents(node))
     {
         std::pair<Algorithms::IntOrNone, Algorithms::ActionsOrNone> result = this->recursiveSearch(nextNode, limit);
 
@@ -39,9 +59,15 @@ Algorithms::Response Algorithms::IDAStar::algorithm(State* state)
     {   
         std::pair<Algorithms::IntOrNone, Algorithms::ActionsOrNone> result = this->recursiveSearch(this->initial, limit);
 
+        this->closedStates.clear();
+
         if(!result.second.isNone)
         {
             return this->createResponse(result.second.actions);
+        }
+        if(!result.first.isNone)
+        {
+            limit = result.first.value;
         }
     }
 

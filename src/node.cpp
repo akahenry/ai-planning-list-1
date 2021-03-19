@@ -67,8 +67,11 @@ int Node::getId()
 
 void Node::deleteState()
 {
-    State::deleteState(this->state);
-    this->state = nullptr;
+    if (this->parent)
+    {
+        State::deleteState(this->state);
+        this->state = nullptr;
+    }
 }
 
 Node&  Node::operator=(const Node &other)

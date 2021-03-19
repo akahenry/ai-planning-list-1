@@ -1,5 +1,25 @@
 #include "idfs.hpp"
 
+std::vector<Node*> Algorithms::IDFS::adjacents(Node* node)
+{
+    this->expandedCount++;
+    std::vector<Node*> response;
+
+    for(std::pair<const Actions, State*> &x : node->state->succ())
+    {
+        Actions action = x.first;
+        State* state = x.second;
+        if(state->instance->getBlankTilePosition() != node->state->instance->getBlankTilePosition() &&
+            this->closedStates.count(*state) == 0)
+        {
+            response.push_back(Node::make_node(node, action, state));
+            this->closedStates.insert(*state);
+        }
+    }
+    
+    return response;
+}
+
 std::pair<std::vector<Actions>, bool> Algorithms::IDFS::dls(Node* node, int depth)
 {
     if(node->state->isGoal())
@@ -9,7 +29,7 @@ std::pair<std::vector<Actions>, bool> Algorithms::IDFS::dls(Node* node, int dept
 
     if(depth > 0)
     {
-        for(Node* nextNode : BaseAlgorithm::adjacents(node))
+        for(Node* nextNode : this->adjacents(node))
         {
             std::pair<std::vector<Actions>, bool> solution = IDFS::dls(nextNode, depth - 1);
 
@@ -29,6 +49,8 @@ Algorithms::Response Algorithms::IDFS::algorithm(State* state)
     for(int depth = 0; true; depth++)
     {
         std::pair<std::vector<Actions>, bool> solution = IDFS::dls(this->initial, depth);
+        
+        this->closedStates.clear();
 
         if(solution.second)
         {

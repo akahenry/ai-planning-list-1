@@ -15,6 +15,15 @@ class State
     public:
         Instance* instance;
 
+        struct State_Hash
+        {
+            size_t
+            operator()(const State &obj) const
+            {
+                return State::hash(*(obj.instance));
+            }
+        };
+
         State();
         State(Instance* instance);
         std::map<Actions, State*> succ();
@@ -23,7 +32,7 @@ class State
         int getId();
 
         State& operator=(const State &state);
-        bool operator==(const State &state);
+        bool operator==(const State &state) const;
         bool operator!=(const State &state);
 
         static State* getState(Instance* instance);

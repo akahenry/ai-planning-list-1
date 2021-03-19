@@ -96,7 +96,7 @@ State& State::operator=(const State &state)
     return *this;
 }
 
-bool State::operator==(const State &state)
+bool State::operator==(const State &state) const
 {
     if (this->instance == nullptr)
     {
