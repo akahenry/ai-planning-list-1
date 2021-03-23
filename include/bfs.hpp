@@ -55,7 +55,7 @@ namespace Algorithms
                             return this->createResponse(Node::extract_path(node, this->initial.state));
                         }
 
-                        for(Node nextNode : BaseAlgorithm::adjacents(&node))
+                        for(Node nextNode : BaseAlgorithm::adjacents(node))
                         {
                             open.put(nextNode, this->heuristic.run(nextNode.state));
                         }

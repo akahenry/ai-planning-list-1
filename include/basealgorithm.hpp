@@ -32,6 +32,11 @@ namespace Algorithms
 
     class BaseAlgorithm
     {
+        private:
+            std::vector<Node*> allocatedNodes;
+
+            void deallocateNodes();
+
         protected:
             // Statistics
             std::chrono::_V2::system_clock::time_point startTime;
@@ -45,7 +50,7 @@ namespace Algorithms
 
             // Methods
             Response createResponse(std::vector<Actions> actions);
-            std::vector<Node> adjacents(Node* node);
+            std::vector<Node> adjacents(Node node);
 
             // Abstract
             virtual Response algorithm(State state) = 0;

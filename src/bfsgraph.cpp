@@ -17,7 +17,7 @@ Algorithms::Response Algorithms::BFSGraph::algorithm(State state)
         Node node = open[0];
         this->expandedCount++;
 
-        for(Node nextNode : BaseAlgorithm::adjacents(&node))
+        for(Node nextNode : BaseAlgorithm::adjacents(node))
         {
             if(nextNode.state.isGoal())
             {

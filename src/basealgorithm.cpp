@@ -1,5 +1,13 @@
 #include "basealgorithm.hpp"
 
+void Algorithms::BaseAlgorithm::deallocateNodes()
+{
+    for(Node* node : this->allocatedNodes)
+    {
+        delete node;
+    }
+}
+
 Algorithms::Response Algorithms::BaseAlgorithm::run(State state)
 {
     this->startTime = std::chrono::high_resolution_clock::now();
@@ -30,9 +38,11 @@ Algorithms::Response Algorithms::BaseAlgorithm::createResponse(std::vector<Actio
     return response;
 }
 
-std::vector<Node> Algorithms::BaseAlgorithm::adjacents(Node* node)
+std::vector<Node> Algorithms::BaseAlgorithm::adjacents(Node parent)
 {
     std::vector<Node> response;
+    Node* node = new Node(parent);
+    this->allocatedNodes.push_back(node);
 
     for(std::pair<const Actions, State> &x : node->state.succ())
     {
