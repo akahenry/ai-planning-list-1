@@ -20,13 +20,13 @@ enum Types
 struct Program
 {
     Types algorithm;
-    std::vector<State*> states;
+    std::vector<State> states;
 };
 
 namespace Parser
 {
     Types hashit(char* str);
-    Program* parse(int argc, char** argv);
+    Program parse(int argc, char** argv);
 }
 
 #endif

@@ -25,7 +25,7 @@ std::vector<int> Instance::getTiles()
     return std::vector<int>(this->tiles);
 }
 
-Instance* Instance::nextInstance(Actions action)
+Instance Instance::nextInstance(Actions action)
 {
     std::vector<int> newTiles = this->tiles;
     int increment = 0;
@@ -38,14 +38,14 @@ Instance* Instance::nextInstance(Actions action)
     {
         if(action == Actions::UP)
         {
-            return this;
+            return *this;
         }
     }
     else if (xBlankTilePosition == (sqrtSize - 1))
     {
         if(action == Actions::DOWN)
         {
-            return this;
+            return *this;
         }
     }
 
@@ -53,14 +53,14 @@ Instance* Instance::nextInstance(Actions action)
     {
         if(action == Actions::LEFT)
         {
-            return this;
+            return *this;
         }
     }
     else if (yBlankTilePosition == (sqrtSize - 1))
     {
         if(action == Actions::RIGHT)
         {
-            return this;
+            return *this;
         }
     }
 
@@ -68,7 +68,7 @@ Instance* Instance::nextInstance(Actions action)
     newTiles[this->blankTilePosition] = this->tiles[this->blankTilePosition + increment];
     newTiles[this->blankTilePosition + increment] = 0;
 
-    return new Instance(newTiles, this->blankTilePosition + increment);
+    return Instance(newTiles, this->blankTilePosition + increment);
 }
 
 bool Instance::isGoal(Instance instance)
@@ -80,6 +80,8 @@ Instance& Instance::operator=(const Instance &other)
 {
     this->blankTilePosition = other.blankTilePosition;
     this->tiles = other.tiles;
+    this->size = other.size;
+    this->ACTION_MOVE = other.ACTION_MOVE;
     return *this;
 }
 

@@ -4,8 +4,8 @@ bool Algorithms::AStarComparator::operator()(PQElement a, PQElement b)
 {
     int ha = a.first;
     int hb = b.first;
-    int fa = a.second->path_cost + ha;
-    int fb = b.second->path_cost + hb;
+    int fa = a.second.path_cost + ha;
+    int fb = b.second.path_cost + hb;
 
     if (fa == fb)
     {
@@ -16,5 +16,3 @@ bool Algorithms::AStarComparator::operator()(PQElement a, PQElement b)
         return fa >= fb;
     }
 }
-
-template struct Algorithms::BFS<Algorithms::AStarComparator>;

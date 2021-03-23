@@ -1,6 +1,6 @@
 #include "basealgorithm.hpp"
 
-Algorithms::Response Algorithms::BaseAlgorithm::run(State* state)
+Algorithms::Response Algorithms::BaseAlgorithm::run(State state)
 {
     this->startTime = std::chrono::high_resolution_clock::now();
     this->initial = Node::make_root_node(state);
@@ -15,7 +15,7 @@ Algorithms::Response Algorithms::BaseAlgorithm::run(State* state)
     {
         response.meanHeuristicFunction = 0;
     }
-    response.initialHeuristicFunction = this->heuristic.run(*(this->initial->state));
+    response.initialHeuristicFunction = this->heuristic.run(this->initial.state);
 
     return response;
 }
@@ -30,16 +30,15 @@ Algorithms::Response Algorithms::BaseAlgorithm::createResponse(std::vector<Actio
     return response;
 }
 
-std::vector<Node*> Algorithms::BaseAlgorithm::adjacents(Node* node)
+std::vector<Node> Algorithms::BaseAlgorithm::adjacents(Node* node)
 {
-    this->expandedCount++;
-    std::vector<Node*> response;
+    std::vector<Node> response;
 
-    for(std::pair<const Actions, State*> &x : node->state->succ())
+    for(std::pair<const Actions, State> &x : node->state.succ())
     {
         Actions action = x.first;
-        State* state = x.second;
-        if(state->instance->getBlankTilePosition() != node->state->instance->getBlankTilePosition())
+        State state = x.second;
+        if(state.instance.getBlankTilePosition() != node->state.instance.getBlankTilePosition())
         {
             response.push_back(Node::make_node(node, action, state));
         }

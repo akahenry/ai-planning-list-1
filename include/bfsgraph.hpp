@@ -11,7 +11,7 @@ namespace Algorithms
     class BFSGraph : public Algorithms::BaseAlgorithm
     {
         protected:
-            Algorithms::Response algorithm(State* state);
+            Algorithms::Response algorithm(State state);
     };
 }
 

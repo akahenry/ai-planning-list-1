@@ -41,17 +41,17 @@ namespace Algorithms
 
             // Functionalities
             Heuristic heuristic;
-            Node* initial;
+            Node initial;
 
             // Methods
             Response createResponse(std::vector<Actions> actions);
-            std::vector<Node*> adjacents(Node* node);
+            std::vector<Node> adjacents(Node* node);
 
             // Abstract
-            virtual Response algorithm(State* state) = 0;
+            virtual Response algorithm(State state) = 0;
 
         public:
-            Response run(State* state);
+            Response run(State state);
     };
 }
 

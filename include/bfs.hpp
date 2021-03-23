@@ -8,7 +8,7 @@
 
 namespace Algorithms 
 {
-    typedef std::pair<int, Node*> PQElement;
+    typedef std::pair<int, Node> PQElement;
 
     template <class comparator>
     struct PriorityQueue {
@@ -19,12 +19,12 @@ namespace Algorithms
             return elements.empty();
         }
 
-        inline void put(Node* item, int priority) {
+        inline void put(Node item, int priority) {
             elements.emplace(priority, item);
         }
 
-        Node* get() {
-            Node* best_item = elements.top().second;
+        Node get() {
+            Node best_item = elements.top().second;
             elements.pop();
             return best_item;
         }
@@ -34,29 +34,30 @@ namespace Algorithms
     class BFS : public BaseAlgorithm
     {
         protected:
-            Response algorithm(State* state)
+            Response algorithm(State state)
             {
                 Algorithms::PriorityQueue<comparator> open;
                 std::unordered_set<Node, Node::Node_Hash> closed;
                 
-                open.put(this->initial, this->heuristic.run(*(this->initial->state)));
+                open.put(this->initial, this->heuristic.run(this->initial.state));
 
                 while(!open.empty())
                 {
-                    Node* node = open.get();
+                    Node node = open.get();
+                    this->expandedCount++;
 
-                    if(!closed.count(*node))
+                    if(!closed.count(node))
                     {
-                        closed.insert(*node);
+                        closed.insert(node);
                         
-                        if(node->state->isGoal())
+                        if(node.state.isGoal())
                         {
-                            return this->createResponse(Node::extract_path(*node, this->initial->state));
+                            return this->createResponse(Node::extract_path(node, this->initial.state));
                         }
 
-                        for(Node* nextNode : BaseAlgorithm::adjacents(node))
+                        for(Node nextNode : BaseAlgorithm::adjacents(&node))
                         {
-                            open.put(nextNode, this->heuristic.run(*(nextNode->state)));
+                            open.put(nextNode, this->heuristic.run(nextNode.state));
                         }
                     }
                 }

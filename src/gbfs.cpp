@@ -4,8 +4,8 @@ bool Algorithms::GBFSComparator::operator()(PQElement a, PQElement b)
 {
     int ha = a.first;
     int hb = b.first;
-    int ga = a.second->path_cost;
-    int gb = b.second->path_cost;
+    int ga = a.second.path_cost;
+    int gb = b.second.path_cost;
 
     if (ha == hb)
     {
