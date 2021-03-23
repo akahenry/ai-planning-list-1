@@ -34,10 +34,6 @@ class State
         State& operator=(const State &state);
         bool operator==(const State &state) const;
         bool operator!=(const State &state);
-
-        static State getState(Instance instance);
-        static void insertState(State state);
-        static void deleteState(State state);
 };
 
 #endif

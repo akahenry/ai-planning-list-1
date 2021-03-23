@@ -49,6 +49,7 @@ std::map<Actions, State> State::succ()
 State& State::operator=(const State &state)
 {
     this->instance = state.instance;
+    this->id = state.id;
 
     return *this;
 }
