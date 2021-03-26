@@ -9,7 +9,7 @@ std::vector<Node*> Algorithms::IDFS::adjacents(Node* node)
     {
         Actions action = x.first;
         State* state = x.second;
-        if(state->instance->getBlankTilePosition() != node->state->instance->getBlankTilePosition() &&
+        if(state->instance.getBlankTilePosition() != node->state->instance.getBlankTilePosition() &&
             this->closedStates.count(*state) == 0)
         {
             response.push_back(Node::make_node(node, action, state));

@@ -47,7 +47,7 @@ Program* Parser::parse(int argc, char** argv)
 
                 if(strchr(argv[i], ','))
                 {
-                    states.push_back(new State(new Instance(currentInstance, currentBlankTilePosition)));
+                    states.push_back(new State(Instance(currentInstance, currentBlankTilePosition)));
                     currentInstance.clear();
                 } 
                 break;
@@ -56,7 +56,7 @@ Program* Parser::parse(int argc, char** argv)
                 continue;
         }
     }
-    states.push_back(new State(new Instance(currentInstance, currentBlankTilePosition)));
+    states.push_back(new State(Instance(currentInstance, currentBlankTilePosition)));
 
     return new Program{algorithm, states};
 }

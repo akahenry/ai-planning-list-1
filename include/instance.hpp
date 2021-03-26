@@ -33,7 +33,7 @@ class Instance
         int getBlankTilePosition();
         std::vector<int> getTiles();
 
-        Instance* nextInstance(Actions action);
+        Instance nextInstance(Actions action);
         static bool isGoal(Instance instance);
 
         Instance& operator=(const Instance &other);

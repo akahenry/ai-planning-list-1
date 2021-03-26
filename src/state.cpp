@@ -5,9 +5,9 @@ int State::hash(const Instance &instance)
     return Instance::Instance_Hash()(instance);
 }
 
-State* State::getState(Instance* instance)
+State* State::getState(Instance instance)
 {
-    int hashResult = hash(*instance);
+    int hashResult = hash(instance);
     if(states.find(hashResult) == states.end())
         return nullptr;
     else
@@ -30,12 +30,11 @@ void State::deleteState(State* state)
 State::State()
 {
     this->id = -1;
-    this->instance = new Instance;
 
     State::insertState(this);
 }
 
-State::State(Instance* instance)
+State::State(Instance instance)
 {
     State* got = State::getState(instance);
     
@@ -46,7 +45,7 @@ State::State(Instance* instance)
     }
     else
     {
-        this->id = hash(*instance);
+        this->id = hash(instance);
         this->instance = instance;
         State::insertState(this);
     }    
@@ -54,7 +53,7 @@ State::State(Instance* instance)
 
 State* State::nextState(Actions action)
 {
-    Instance* nextInstance = this->instance->nextInstance(action);
+    Instance nextInstance = this->instance.nextInstance(action);
     State* got = State::getState(nextInstance);
 
     if(got != nullptr)
@@ -69,7 +68,7 @@ State* State::nextState(Actions action)
 
 bool State::isGoal()
 {
-    return Instance::isGoal(*(this->instance));
+    return Instance::isGoal(this->instance);
 }
 
 int State::getId()
@@ -91,21 +90,14 @@ std::map<Actions, State*> State::succ()
 
 State& State::operator=(const State &state)
 {
-    *(this->instance) = *(state.instance);
+    this->instance = state.instance;
 
     return *this;
 }
 
 bool State::operator==(const State &state) const
 {
-    if (this->instance == nullptr)
-    {
-        return state.instance == nullptr;
-    }
-    else
-    {
-        return this->instance == state.instance;
-    }
+    return this->id == state.id;
 }
 
 bool State::operator!=(const State &state)

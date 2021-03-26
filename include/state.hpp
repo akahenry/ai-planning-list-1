@@ -13,19 +13,19 @@ class State
         static int hash(const Instance &instance);
 
     public:
-        Instance* instance;
+        Instance instance;
 
         struct State_Hash
         {
             size_t
             operator()(const State &obj) const
             {
-                return State::hash(*(obj.instance));
+                return State::hash(obj.instance);
             }
         };
 
         State();
-        State(Instance* instance);
+        State(Instance instance);
         std::map<Actions, State*> succ();
         State* nextState(Actions action);
         bool isGoal();
@@ -35,7 +35,7 @@ class State
         bool operator==(const State &state) const;
         bool operator!=(const State &state);
 
-        static State* getState(Instance* instance);
+        static State* getState(Instance instance);
         static void insertState(State* state);
         static void deleteState(State* state);
 };
