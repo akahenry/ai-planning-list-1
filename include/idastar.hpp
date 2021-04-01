@@ -23,8 +23,6 @@ namespace Algorithms
     class IDAStar : public BaseAlgorithm
     {
         private:
-            std::unordered_set<State, State::State_Hash> closedStates;  
-
             std::vector<Node*> adjacents(Node* node);
             std::pair<IntOrNone, ActionsOrNone> recursiveSearch(Node* node, int limit);
 

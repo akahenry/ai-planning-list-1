@@ -26,7 +26,7 @@ struct Program
 namespace Parser
 {
     Types hashit(char* str);
-    Program* parse(int argc, char** argv);
+    Program parse(int argc, char** argv);
 }
 
 #endif

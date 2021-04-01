@@ -9,13 +9,13 @@
 
 int main(int argc, char** argv) 
 {
-    Program* prog = Parser::parse(argc, argv);
+    Program prog = Parser::parse(argc, argv);
     Algorithms::Response response;
     Algorithms::BaseAlgorithm* algorithm;
 
-    for(int i = 0; i < prog->states.size(); i++)
+    for(int i = 0; i < prog.states.size(); i++)
     {
-        switch(prog->algorithm)
+        switch(prog.algorithm)
         {
             case Types::BFS:
                 algorithm = new Algorithms::BFSGraph();
@@ -36,7 +36,7 @@ int main(int argc, char** argv)
                 break;
         }
 
-    response = algorithm->run(prog->states[i]);
+    response = algorithm->run(prog.states[i]);
     std::cout << response.expandedNodes << ',' << response.optimalSolutionSize << ',' << 
                     response.elapsedTime << ',' << response.meanHeuristicFunction << ',' << 
                     response.initialHeuristicFunction << std::endl;

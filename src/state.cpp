@@ -8,8 +8,12 @@ int State::hash(const Instance &instance)
 State* State::getState(Instance instance)
 {
     int hashResult = hash(instance);
-    if(states.find(hashResult) == states.end())
-        return nullptr;
+    if(!states.count(hashResult))
+    {
+        State* state = new State(instance);
+        State::insertState(state);
+        return state;
+    }
     else
     {
         return states.at(hashResult);
@@ -30,25 +34,12 @@ void State::deleteState(State* state)
 State::State()
 {
     this->id = -1;
-
-    State::insertState(this);
 }
 
 State::State(Instance instance)
 {
-    State* got = State::getState(instance);
-    
-    if(got != nullptr)
-    {
-        this->id = got->id;
-        this->instance = got->instance;
-    }
-    else
-    {
-        this->id = hash(instance);
-        this->instance = instance;
-        State::insertState(this);
-    }    
+    this->id = hash(instance);
+    this->instance = instance;
 }
 
 State* State::nextState(Actions action)
@@ -56,14 +47,7 @@ State* State::nextState(Actions action)
     Instance nextInstance = this->instance.nextInstance(action);
     State* got = State::getState(nextInstance);
 
-    if(got != nullptr)
-    {
-        return got;
-    }
-    else
-    {
-        return new State(nextInstance);
-    }
+    return got;
 }
 
 bool State::isGoal()
