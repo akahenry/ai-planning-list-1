@@ -1,6 +1,6 @@
 #include "state.hpp"
 
-int State::hash(const Instance &instance)
+std::size_t State::hash(const Instance &instance)
 {
     return Instance::Instance_Hash()(instance);
 }
@@ -55,7 +55,7 @@ bool State::isGoal()
     return Instance::isGoal(this->instance);
 }
 
-int State::getId()
+std::size_t State::getId()
 {
     return this->id;
 }

@@ -9,8 +9,8 @@
 class State
 {
     private:
-        int id;
-        static int hash(const Instance &instance);
+        std::size_t id;
+        static std::size_t hash(const Instance &instance);
 
     public:
         Instance instance;
@@ -29,7 +29,7 @@ class State
         std::map<Actions, State*> succ();
         State* nextState(Actions action);
         bool isGoal();
-        int getId();
+        std::size_t getId();
 
         State& operator=(const State &state);
         bool operator==(const State &state) const;
@@ -40,6 +40,6 @@ class State
         static void deleteState(State* state);
 };
 
-static std::map<int, State*> states;
+static std::map<std::size_t, State*> states;
 
 #endif

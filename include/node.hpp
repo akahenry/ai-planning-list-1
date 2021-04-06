@@ -13,8 +13,8 @@
 class Node
 {
     private:
-        int id;
-        static int hash(Actions action, State* state); 
+        std::size_t id;
+        static std::size_t hash(Actions action, State* state); 
 
     public:
         Node();
@@ -33,7 +33,7 @@ class Node
         Actions action;
         int path_cost;
 
-        int getId();
+        std::size_t getId();
         void deleteState();
 
         static void init();

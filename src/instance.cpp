@@ -90,12 +90,24 @@ bool Instance::operator==(const Instance &other)
     return (this->tiles == other.tiles) && (this->blankTilePosition == other.blankTilePosition);
 }
 
+unsigned long base2dec(int b, std::vector<int> vec)
+{
+    unsigned long digit;           // Current digit
+    unsigned long ret = 0;         // The return value
+
+    // Continue until the end of the string is reached
+    for (int& p : vec)
+    {
+        ret = ret * b + p;
+    }
+    return ret;
+}
+
 std::size_t Instance::Instance_Hash::operator()(const Instance& instance) const
 {
     std::vector<int> vec = instance.tiles;
-    std::size_t seed = vec.size();
-    for(auto& i : vec) {
-        seed ^= i + 0x9e3779b9 + (seed << 6) + (seed >> 2);
-    }
-    return seed;
+    std::size_t idx = base2dec(instance.size, vec);
+
+    return idx;
 }
+
