@@ -1,3 +1,7 @@
+/* idfs.hpp
+    Defines the class which will implement the IDFS algorithm.
+*/
+
 #include <unordered_set>
 
 #include "basealgorithm.hpp"
@@ -13,8 +17,6 @@ namespace Algorithms
             Response algorithm(State* state);
 
         private:
-            std::unordered_set<State, State::State_Hash> closedStates;  
-
             std::vector<Node*> adjacents(Node* node);
             std::pair<std::vector<Actions>, bool> dls(Node* node, int depth);
     };

@@ -1,3 +1,8 @@
+/* problem.hpp
+    Defines the class which will implement the Problem logic.
+    Essentialy, we need to know the cost function.
+*/
+
 #include "actions.hpp"
 #include "state.hpp"
 

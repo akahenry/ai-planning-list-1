@@ -1,3 +1,9 @@
+/* instance.hpp
+    Defines the class which will implement the Instance logic - which is the pratical concept of state.
+    In this case, each instance represents a specific state in the game. Also, each state can be handle
+    as a new instance (that's the reason for its name).
+*/
+
 #include <vector>
 #include <map>
 #include <algorithm> 
@@ -33,7 +39,7 @@ class Instance
         int getBlankTilePosition();
         std::vector<int> getTiles();
 
-        Instance* nextInstance(Actions action);
+        Instance nextInstance(Actions action);
         static bool isGoal(Instance instance);
 
         Instance& operator=(const Instance &other);

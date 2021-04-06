@@ -1,3 +1,7 @@
+/* bfsgraph.hpp
+    Defines the class which will implement the BFS-Graph algorithm.
+*/
+
 #include <deque>
 #include <unordered_set>
 

@@ -1,6 +1,6 @@
 #include "node.hpp"
 
-int Node::hash(Actions action, State* state)
+std::size_t Node::hash(Actions action, State* state)
 {
     return state->getId();
 }
@@ -60,7 +60,7 @@ std::vector<Actions> Node::extract_path(Node node, State* start)
     return path;
 }
 
-int Node::getId()
+std::size_t Node::getId()
 {
     return this->id;
 }

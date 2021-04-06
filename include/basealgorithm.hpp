@@ -1,3 +1,7 @@
+/* basealgorithm.hpp
+    Defines the abstract class which will handle with all the statistics and data about the algorithm running.
+*/
+
 #include <iostream>
 #include <chrono>
 #include <vector>

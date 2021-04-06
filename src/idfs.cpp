@@ -9,11 +9,9 @@ std::vector<Node*> Algorithms::IDFS::adjacents(Node* node)
     {
         Actions action = x.first;
         State* state = x.second;
-        if(state->instance->getBlankTilePosition() != node->state->instance->getBlankTilePosition() &&
-            this->closedStates.count(*state) == 0)
+        if(state->instance.getBlankTilePosition() != node->state->instance.getBlankTilePosition() && (node->parent == nullptr || node->parent->state != state))
         {
             response.push_back(Node::make_node(node, action, state));
-            this->closedStates.insert(*state);
         }
     }
     
@@ -49,8 +47,6 @@ Algorithms::Response Algorithms::IDFS::algorithm(State* state)
     for(int depth = 0; true; depth++)
     {
         std::pair<std::vector<Actions>, bool> solution = IDFS::dls(this->initial, depth);
-        
-        this->closedStates.clear();
 
         if(solution.second)
         {

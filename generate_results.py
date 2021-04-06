@@ -1,6 +1,6 @@
 import os
 
-def run_algorithm(algorithm, instance, timelimit = "600", memorylimit = "4000000"):
+def run_algorithm(algorithm, instance, timelimit = "300", memorylimit = "4000000"):
     process = os.popen(f"ulimit -t {timelimit}; ulimit -v {memorylimit}; ./bin/main {algorithm} {instance}")
 
     result = process.read()
@@ -17,6 +17,7 @@ gbfs_result_file = open("./results/gbfs.csv", "w")
 idastar_result_file = open("./results/idastar.csv", "w")
 
 with open("./public/8puzzle_instances.txt", "r") as file:
+    i = 0
     for line in file.readlines():
         print("bfs")
         bfs_result_file.write(run_algorithm("-bfs", line))
@@ -28,6 +29,8 @@ with open("./public/8puzzle_instances.txt", "r") as file:
         gbfs_result_file.write(run_algorithm("-gbfs", line))
         print("idastar")
         idastar_result_file.write(run_algorithm("-idastar", line))
+        i += 1
+        print(f"{i}% completed")
 
 bfs_result_file.close()
 astar_result_file.close()
@@ -38,7 +41,11 @@ idastar_result_file.close()
 astar_result_file = open("./results/astar15puzzle.csv", "w")
 
 with open("./public/15puzzle_instances.txt", "r") as file:
+    i = 0
     for line in file.readlines():
+        print("15puzzle-astar")
         astar_result_file.write(run_algorithm("-astar", line, "30", "10000000"))
+        i += 1
+        print(f"{i}% completed")
 
 astar_result_file.close()

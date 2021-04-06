@@ -1,3 +1,9 @@
+/* node.hpp
+    Defines the class which will implement node stuff.
+    Basically, a node contains a state, an action and a parent which generated it.
+    To simplify the calculations, the path cost is also an attribute of this class.
+*/
+
 #include <iostream>
 #include <cstddef>
 #include <vector>
@@ -13,8 +19,8 @@
 class Node
 {
     private:
-        int id;
-        static int hash(Actions action, State* state); 
+        std::size_t id;
+        static std::size_t hash(Actions action, State* state); 
 
     public:
         Node();
@@ -33,7 +39,7 @@ class Node
         Actions action;
         int path_cost;
 
-        int getId();
+        std::size_t getId();
         void deleteState();
 
         static void init();

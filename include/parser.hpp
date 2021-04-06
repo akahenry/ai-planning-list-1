@@ -1,3 +1,7 @@
+/* parser.hpp
+    Defines the class which will parse the parameters given to the application.
+*/
+
 #include <string.h>
 #include <vector>
 #include <iostream>
@@ -26,7 +30,7 @@ struct Program
 namespace Parser
 {
     Types hashit(char* str);
-    Program* parse(int argc, char** argv);
+    Program parse(int argc, char** argv);
 }
 
 #endif

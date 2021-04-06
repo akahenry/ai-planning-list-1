@@ -16,7 +16,7 @@ Types Parser::hashit(char* str)
         return Types::NONE;
 }
 
-Program* Parser::parse(int argc, char** argv)
+Program Parser::parse(int argc, char** argv)
 {
     std::vector<State*> states;
     std::vector<int> currentInstance;
@@ -42,12 +42,12 @@ Program* Parser::parse(int argc, char** argv)
                 catch(const std::invalid_argument& e)
                 {
                     std::cerr << e.what() << '\n';
-                    return NULL;
+                    return Program();
                 }
 
                 if(strchr(argv[i], ','))
                 {
-                    states.push_back(new State(new Instance(currentInstance, currentBlankTilePosition)));
+                    states.push_back(State::getState(Instance(currentInstance, currentBlankTilePosition)));
                     currentInstance.clear();
                 } 
                 break;
@@ -56,7 +56,7 @@ Program* Parser::parse(int argc, char** argv)
                 continue;
         }
     }
-    states.push_back(new State(new Instance(currentInstance, currentBlankTilePosition)));
+    states.push_back(State::getState(Instance(currentInstance, currentBlankTilePosition)));
 
-    return new Program{algorithm, states};
+    return Program{algorithm, states};
 }

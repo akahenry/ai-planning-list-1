@@ -9,11 +9,9 @@ std::vector<Node*> Algorithms::IDAStar::adjacents(Node* node)
     {
         Actions action = x.first;
         State* state = x.second;
-        if(state->instance->getBlankTilePosition() != node->state->instance->getBlankTilePosition() &&
-            this->closedStates.count(*state) == 0)
+        if(state->instance.getBlankTilePosition() != node->state->instance.getBlankTilePosition() && (node->parent == nullptr || node->parent->state != state))
         {
             response.push_back(Node::make_node(node, action, state));
-            this->closedStates.insert(*state);
         }
     }
     
@@ -58,8 +56,6 @@ Algorithms::Response Algorithms::IDAStar::algorithm(State* state)
     while(limit <= std::numeric_limits<int>::max())
     {   
         std::pair<Algorithms::IntOrNone, Algorithms::ActionsOrNone> result = this->recursiveSearch(this->initial, limit);
-
-        this->closedStates.clear();
 
         if(!result.second.isNone)
         {

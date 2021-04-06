@@ -1,3 +1,7 @@
+/* astar.hpp
+    Defines the class which will implement the A* algorithm.
+*/
+
 #include "bfs.hpp"
 
 #ifndef ASTAR_H
