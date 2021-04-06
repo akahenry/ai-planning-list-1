@@ -1,3 +1,7 @@
+/* heuristic.hpp
+    Defines the class which will implement all the heuristic stuff.
+*/
+
 #include <math.h>
 
 #include "state.hpp"

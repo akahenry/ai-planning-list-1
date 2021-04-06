@@ -1,3 +1,7 @@
+/* idfs.hpp
+    Defines the class which will implement the IDFS algorithm.
+*/
+
 #include <unordered_set>
 
 #include "basealgorithm.hpp"

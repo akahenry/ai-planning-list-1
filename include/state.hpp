@@ -1,3 +1,10 @@
+/* state.hpp
+    Defines the class which will implement the controller for all the states in the application.
+    This class knows generates the sucessors of a state, knows which states is allocated, if the state
+    is goal and more.
+    Basically, it is the controller of the states.
+*/
+
 #include <map>
 
 #include "instance.hpp"

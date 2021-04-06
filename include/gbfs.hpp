@@ -1,3 +1,7 @@
+/* gbfs.hpp
+    Defines the class which will implement the GBFS algorithm.
+*/
+
 #include "bfs.hpp"
 
 #ifndef GBFS_H

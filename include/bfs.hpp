@@ -1,3 +1,7 @@
+/* bfs.hpp
+    Defines the template class which will implement the BFS algorithm for any comparator.
+*/
+
 #include <queue>
 #include <unordered_set>
 

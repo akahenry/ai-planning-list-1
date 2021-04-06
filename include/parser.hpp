@@ -1,3 +1,7 @@
+/* parser.hpp
+    Defines the class which will parse the parameters given to the application.
+*/
+
 #include <string.h>
 #include <vector>
 #include <iostream>

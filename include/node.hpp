@@ -1,3 +1,9 @@
+/* node.hpp
+    Defines the class which will implement node stuff.
+    Basically, a node contains a state, an action and a parent which generated it.
+    To simplify the calculations, the path cost is also an attribute of this class.
+*/
+
 #include <iostream>
 #include <cstddef>
 #include <vector>

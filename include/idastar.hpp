@@ -1,3 +1,7 @@
+/* idastar.hpp
+    Defines the class which will implement the IDA* algorithm.
+*/
+
 #include <limits>
 #include <unordered_set>
 
