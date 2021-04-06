@@ -1,6 +1,6 @@
 import os
 
-def run_algorithm(algorithm, instance, timelimit = "600", memorylimit = "4000000"):
+def run_algorithm(algorithm, instance, timelimit = "60", memorylimit = "4000000"):
     process = os.popen(f"ulimit -t {timelimit}; ulimit -v {memorylimit}; ./bin/main {algorithm} {instance}")
 
     result = process.read()
