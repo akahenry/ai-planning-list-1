@@ -12,7 +12,7 @@
 
 namespace Algorithms 
 {
-    typedef std::pair<int, Node*> PQElement;
+    typedef std::pair<std::pair<int, int>, Node*> PQElement;
 
     template <class comparator>
     struct PriorityQueue {
@@ -23,8 +23,8 @@ namespace Algorithms
             return elements.empty();
         }
 
-        inline void put(Node* item, int priority) {
-            elements.emplace(priority, item);
+        inline void put(Node* item, int priority, int count) {
+            elements.emplace(std::pair<int, int>{priority, count}, item);
         }
 
         Node* get() {
@@ -42,8 +42,9 @@ namespace Algorithms
             {
                 Algorithms::PriorityQueue<comparator> open;
                 std::unordered_set<Node, Node::Node_Hash> closed;
+                int count = 0;
                 
-                open.put(this->initial, this->heuristic.run(*(this->initial->state)));
+                open.put(this->initial, this->heuristic.run(*(this->initial->state)), count++);
 
                 while(!open.empty())
                 {
@@ -60,7 +61,7 @@ namespace Algorithms
 
                         for(Node* nextNode : BaseAlgorithm::adjacents(node))
                         {
-                            open.put(nextNode, this->heuristic.run(*(nextNode->state)));
+                            open.put(nextNode, this->heuristic.run(*(nextNode->state)), count++);
                         }
                     }
                 }
